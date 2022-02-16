@@ -5,12 +5,12 @@ module.exports = {
     node: true,
   },
   extends: [
+    'prettier',
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
-    'prettier',
     'airbnb',
   ],
   plugins: [],
   // add your custom rules here
   rules: {},
-}
+};
