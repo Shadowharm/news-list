@@ -3,6 +3,5 @@
     "singleQuote": true,
     "tabWidth": 4,
     "trailingComma": "es5",
-    "bracketSpacing": true,
-    "vueIndentScriptAndStyle": true
+    "bracketSpacing": true
 }
