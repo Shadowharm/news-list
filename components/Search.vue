@@ -22,13 +22,14 @@ export default Vue.extend({
     justify-content: space-between;
     align-items: center;
     height: 32px;
-    padding: 4px;
+    padding: 4px 0;
     width: 100%;
     max-width: 321px;
     background-color: #ffffff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     margin-left: auto;
+
     &__input {
         height: 100%;
         width: 100%;
@@ -36,6 +37,7 @@ export default Vue.extend({
         border: none;
         font-family: Arial;
         font-size: 16px;
+        padding-left: 6px;
     }
 
     &__btn {
@@ -44,9 +46,11 @@ export default Vue.extend({
         align-items: center;
         background-color: inherit;
         border: none;
+        padding-right: 13px;
+        cursor: pointer;
     }
 
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
         max-width: 100%;
     }
 }
