@@ -12,7 +12,7 @@
         <hr class="active-bar__hr" />
         <div class="sorting">
             <div class="sorting__source">
-                <label class="sorting__button">
+                <label class="sorting__button sorting__button_active">
                     <input type="radio" class="radiobutton" name="source" />
                     Все
                 </label>
@@ -32,8 +32,8 @@
                         class="radiobutton"
                         name="display-mode"
                     />
-                    <div class="rows__div" />
-                    <div class="rows__div" />
+                    <div class="rows__div rows__div_active" />
+                    <div class="rows__div rows__div_active" />
                 </label>
                 <label class="sorting__button grid">
                     <input
@@ -157,6 +157,10 @@ export default Vue.extend({
         font-weight: bold;
         font-size: 14px;
         line-height: 16px;
+
+        &_active {
+            color: #0029FF;
+        }
     }
 
     &__display-mode {
@@ -177,6 +181,10 @@ export default Vue.extend({
         width: 18px;
         height: 8px;
         background-color: #c4c4c4;
+
+        &_active {
+            background-color: #0029ff
+        }
     }
 }
 
@@ -190,6 +198,10 @@ export default Vue.extend({
         width: 8px;
         height: 8px;
         background-color: #c4c4c4;
+
+        &_active {
+            background-color: #0029ff
+        }
     }
 }
 

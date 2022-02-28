@@ -16,5 +16,6 @@ export default Vue.extend({});
     max-width: 1060px;
     margin: auto;
     margin-top: 36px;
+    margin: 36px auto 48px;
 }
 </style>
