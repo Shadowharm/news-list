@@ -10,7 +10,7 @@
             </div>
             <div class="newscard__main_rows">
                 <h2 class="newscard__title">
-                    <a href="">{{ title }}</a>
+                    <a href="" class="newscard__title-link">{{ title }}</a>
                 </h2>
 
                 <div class="newscard__description">
@@ -86,6 +86,11 @@ export default Vue.extend({
         color: #0029ff;
         margin: 0;
         margin-bottom: 20px;
+    }
+
+    &__title-link {
+        color: inherit;
+        text-decoration: none;
     }
 
     &__description {
