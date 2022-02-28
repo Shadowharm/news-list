@@ -2,31 +2,50 @@
     <div class="active-bar">
         <div class="search">
             <div class="search__title-btn">
-                <span class="search__title">Список новостей</span>
+                <h1 class="search__title">Список новостей</h1>
                 <button type="button" class="search__update-button">
                     <update-icon />
                 </button>
             </div>
             <search />
         </div>
-        <hr />
+        <hr class="active-bar__hr" />
         <div class="sorting">
             <div class="sorting__source">
-                <button class="sorting__button">Все</button>
-                <button class="sorting__button">Lenta.ru</button>
-                <button class="sorting__button">Mos.ru</button>
+                <label class="sorting__button">
+                    <input type="radio" class="radiobutton" name="source" />
+                    Все
+                </label>
+                <label class="sorting__button">
+                    <input type="radio" class="radiobutton" name="source" />
+                    Lenta.ru
+                </label>
+                <label class="sorting__button">
+                    <input type="radio" class="radiobutton" name="source" />
+                    Mos.ru
+                </label>
             </div>
             <div class="sorting__display-mode">
-                <button class="sorting__button rows">
+                <label class="sorting__button rows">
+                    <input
+                        type="radio"
+                        class="radiobutton"
+                        name="display-mode"
+                    />
                     <div class="rows__div" />
                     <div class="rows__div" />
-                </button>
-                <button class="sorting__button grid">
+                </label>
+                <label class="sorting__button grid">
+                    <input
+                        type="radio"
+                        class="radiobutton"
+                        name="display-mode"
+                    />
                     <div class="grid__div" />
                     <div class="grid__div" />
                     <div class="grid__div" />
                     <div class="grid__div" />
-                </button>
+                </label>
             </div>
         </div>
     </div>
@@ -44,17 +63,25 @@ export default Vue.extend({
 <style lang="scss">
 .active-bar {
     width: 100%;
+
+    &__hr {
+        margin: 0;
+        margin: 36px 0 26px;
+
+        @media (max-width: 600px) {
+            margin: 23px 0 20px;
+        }
+    }
 }
 
 .search {
     display: grid;
     grid-template-columns: max-content 1fr;
     grid-column-gap: 10%;
-    margin-bottom: 36px;
 
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: max-content max-content;
         grid-row-gap: 20px;
     }
 
@@ -93,7 +120,7 @@ export default Vue.extend({
         font-weight: bold;
         font-size: 36px;
         color: #000000;
-
+        margin: 0;
         @media (max-width: 750px) {
             font-size: 30px;
         }
@@ -108,6 +135,11 @@ export default Vue.extend({
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 26px;
+
+    @media (max-width: 600px) {
+        margin-top: 20px;
+    }
 
     &__source {
         display: grid;
@@ -159,5 +191,16 @@ export default Vue.extend({
         height: 8px;
         background-color: #c4c4c4;
     }
+}
+
+.radiobutton {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
 }
 </style>
