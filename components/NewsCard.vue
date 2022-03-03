@@ -2,41 +2,67 @@
     <div class="newscard">
         <div class="newscard__container">
             <div class="image">
-                <img
-                    src="https://s3-alpha-sig.figma.com/img/a0fe/e0ad/3b935633b46e1a65ff5a3c7e3e0dcbbf?Expires=1647216000&Signature=FKyHSV8wT-WFnVvARXAZJBoxFqP49ATvHf0TOmYG84JEYGfvKA52ncOHbOwo4sLA~c~-BUof0t8tmBCxiuBiFZlzCkS5TvsID~lvoBzZFCs75-AN4TNmum6R96MMMArr1a1mzwAb2AI~PAdp3Mi4qypVaJZP1KI9hbyjBzRn0Mc0VPyAT15HKZa4we5OizukTq6Q6YcEkITtlVdDmJzRXTGogIHR10nGxFGxuSydpp7~LyYM3U6lhxdlsLxakczm3YYnaOYqdWnGT5-rzYgb7BVNBLY1uoDFQea8F8A4bvj-ApQU7-AwIhsrYR~2VC4~VU0hILzEhuSk0V4iPgHZEg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-                    alt=""
-                    class="image__img"
-                />
+                <img :src="image" alt="" class="image__img" />
             </div>
             <div class="newscard__main_rows">
                 <h2 class="newscard__title">
-                    <a href="" class="newscard__title-link">{{ title }}</a>
+                    <a
+                        :href="link"
+                        class="newscard__title-link"
+                        target="_blank"
+                        >{{ title }}</a
+                    >
                 </h2>
 
                 <div class="newscard__description">
                     {{ description }}
                 </div>
                 <!-- <div class="newscard__link">
-                    <a href="#">Подробнее</a>
+                    <a :href="link">Подробнее</a>
                 </div> -->
             </div>
         </div>
         <div class="newscard__info">
-            <a class="newscard__source" href="#">www.mos.ru</a>
-            <span>12.01.2020</span>
+            <a
+                class="newscard__source"
+                :href="`https://${source}`"
+                target="_blank"
+                >{{ source }}</a
+            >
+            <span>{{date}}</span>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
     props: {
-        title: String,
-        description: String,
-        imgSrc: String,
-        link: String,
-        source: String,
+        title: {
+            type: String,
+            required: false,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        image: {
+            type: String,
+            required: true,
+        },
+        link: {
+            type: String,
+            required: true,
+        },
+        source: {
+            type: String,
+            required: true,
+        },
+        date: {
+            type: String,
+            required: true,
+        }
     },
 });
 </script>

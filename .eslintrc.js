@@ -14,6 +14,7 @@ module.exports = {
     rules: {
         indent: ['error', 4],
         'vue/html-indent': ['error', 4],
-        'vue/multi-word-component-names': ['allow'],
+        'vue/multi-word-component-names': ['off'],
+        'import/extensions': ['ts', 'never'],
     },
 };

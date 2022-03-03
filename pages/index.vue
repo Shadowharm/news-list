@@ -1,23 +1,34 @@
 <template>
     <Page>
         <Activebar />
-        <News />
+        <News :newsList="newsList" />
         <div class="naw">
-            <a href="" class="naw__link naw__link_active">1</a><a href="" class="naw__link">2</a><a href="" class="naw__link">3</a><a href="" class="naw__link">4</a>
-            <span>...</span> <a href="" class="naw__link">200</a>
+            <a href="" class="naw__link naw__link_active">1</a>
+            <a href="" class="naw__link">2</a>
+            <a href="" class="naw__link">3</a>
+            <a href="" class="naw__link">4</a>
+            <span>...</span>
+            <a href="" class="naw__link">200</a>
         </div>
     </Page>
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import Activebar from '~/components/Activebar.vue';
 import News from '~/components/News.vue';
 import Page from '~/components/Page.vue';
-import Vue from 'vue';
+import { NewsType } from '~/interfaces/news.interface';
 
 export default Vue.extend({
-    components: { Activebar, News, Page },
     name: 'IndexPage',
+    components: { Activebar, News, Page },
+    data() {
+        return { newsList: [] as NewsType[] };
+    },
+    async mounted() {
+        this.newsList = await this.$axios.$get("api/getNews/getNews")
+    },
 });
 </script>
 
@@ -39,7 +50,7 @@ export default Vue.extend({
         text-decoration: none;
 
         &_active {
-            color: #0029FF;
+            color: #0029ff;
         }
     }
 }
