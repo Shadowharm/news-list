@@ -1,10 +1,10 @@
 <template>
     <div class="newscard">
         <div class="newscard__container">
-            <div class="image">
+            <div class="image" v-if="displayMode === 'rows'">
                 <img :src="image" alt="" class="image__img" />
             </div>
-            <div class="newscard__main_rows">
+            <div :class="`newscard__main_${displayMode}`">
                 <h2 class="newscard__title">
                     <a
                         :href="link"
@@ -17,9 +17,12 @@
                 <div class="newscard__description">
                     {{ description }}
                 </div>
-                <!-- <div class="newscard__link">
-                    <a :href="link">Подробнее</a>
-                </div> -->
+                <div
+                    class="newscard__link"
+                    :class="{ newscard__link_rows: displayMode === 'rows' }"
+                >
+                    <a :href="link" target="_blank">Подробнее</a>
+                </div>
             </div>
         </div>
         <div class="newscard__info">
@@ -27,9 +30,9 @@
                 class="newscard__source"
                 :href="`https://${source}`"
                 target="_blank"
-                >{{ source }}</a
+                >www.{{ source }}.ru</a
             >
-            <span>{{date}}</span>
+            <span>{{ date }}</span>
         </div>
     </div>
 </template>
@@ -62,7 +65,11 @@ export default Vue.extend({
         date: {
             type: String,
             required: true,
-        }
+        },
+        displayMode: {
+            required: true,
+            type: String,
+        },
     },
 });
 </script>
@@ -97,7 +104,7 @@ export default Vue.extend({
 
     &__main_grid {
         display: grid;
-        grid-template-rows: 1fr 1fr max-content;
+        grid-template-rows: 1fr 2fr max-content;
 
         @media (max-width: 600px) {
             display: block;
@@ -131,6 +138,12 @@ export default Vue.extend({
     &__link {
         height: 20px;
         margin-bottom: 20px;
+
+        &_rows {
+            @media (min-width: 600px) {
+                display: none;
+            }
+        }
     }
 
     &__info {

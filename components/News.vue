@@ -1,9 +1,10 @@
 <template>
-    <div class="news news_rows">
+    <div class="news" :class="`news_${displayMode}`">
         <news-card
             v-for="(news, i) in newsList"
             :key="i"
             v-bind="news"
+            :displayMode="displayMode"
         />
     </div>
 </template>
@@ -18,6 +19,10 @@ export default Vue.extend({
         newsList: {
             required: true,
             type: Array,
+        },
+        displayMode: {
+            required: true,
+            type: String,
         },
     },
 });

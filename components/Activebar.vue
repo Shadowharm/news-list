@@ -3,25 +3,55 @@
         <div class="search">
             <div class="search__title-btn">
                 <h1 class="search__title">Список новостей</h1>
-                <button type="button" class="search__update-button">
+                <button type="button" class="search__update-button" @click="$emit('update')">
                     <update-icon />
                 </button>
             </div>
-            <search />
+            <search @search="$emit('search', $event)" />
         </div>
         <hr class="active-bar__hr" />
         <div class="sorting">
             <div class="sorting__source">
-                <label class="sorting__button sorting__button_active">
-                    <input type="radio" class="radiobutton" name="source" />
+                <label
+                    class="sorting__button"
+                    :class="{ sorting__button_active: source === 'all' }"
+                >
+                    <input
+                        type="radio"
+                        class="radiobutton"
+                        name="source"
+                        value="all"
+                        v-model="sourceLocal"
+                        @change="$emit('changeSource', $event.target.value)"
+                    />
                     Все
                 </label>
-                <label class="sorting__button">
-                    <input type="radio" class="radiobutton" name="source" />
+                <label
+                    class="sorting__button"
+                    :class="{ sorting__button_active: source === 'lenta' }"
+                >
+                    <input
+                        type="radio"
+                        class="radiobutton"
+                        name="source"
+                        value="lenta"
+                        v-model="sourceLocal"
+                        @change="$emit('changeSource', $event.target.value)"
+                    />
                     Lenta.ru
                 </label>
-                <label class="sorting__button">
-                    <input type="radio" class="radiobutton" name="source" />
+                <label
+                    class="sorting__button"
+                    :class="{ sorting__button_active: source === 'mos' }"
+                >
+                    <input
+                        type="radio"
+                        class="radiobutton"
+                        name="source"
+                        value="mos"
+                        v-model="sourceLocal"
+                        @change="$emit('changeSource', $event.target.value)"
+                    />
                     Mos.ru
                 </label>
             </div>
@@ -30,21 +60,47 @@
                     <input
                         type="radio"
                         class="radiobutton"
-                        name="display-mode"
+                        name="displayMode"
+                        value="rows"
+                        v-model="displayModeLocal"
+                        @change="$emit('changeDisplayMode', $event.target.value)"
                     />
-                    <div class="rows__div rows__div_active" />
-                    <div class="rows__div rows__div_active" />
+                    <div
+                        class="rows__div"
+                        :class="{ rows__div_active: displayMode === 'rows' }"
+                    />
+                    <div
+                        class="rows__div"
+                        :class="{ rows__div_active: displayMode === 'rows' }"
+                    />
                 </label>
                 <label class="sorting__button grid">
                     <input
                         type="radio"
                         class="radiobutton"
-                        name="display-mode"
+                        name="displayMode"
+                        value="grid"
+                        v-model="displayModeLocal"
+                        @change="
+                            $emit('changeDisplayMode', $event.target.value)
+                        "
                     />
-                    <div class="grid__div" />
-                    <div class="grid__div" />
-                    <div class="grid__div" />
-                    <div class="grid__div" />
+                    <div
+                        class="grid__div"
+                        :class="{ grid__div_active: displayMode === 'grid' }"
+                    />
+                    <div
+                        class="grid__div"
+                        :class="{ grid__div_active: displayMode === 'grid' }"
+                    />
+                    <div
+                        class="grid__div"
+                        :class="{ grid__div_active: displayMode === 'grid' }"
+                    />
+                    <div
+                        class="grid__div"
+                        :class="{ grid__div_active: displayMode === 'grid' }"
+                    />
                 </label>
             </div>
         </div>
@@ -57,6 +113,22 @@ import UpdateIcon from '~/components/icons/UpdateIcon.vue';
 import Search from '~/components/Search.vue';
 export default Vue.extend({
     components: { UpdateIcon, Search },
+    data(){
+        return {
+            displayModeLocal: this.displayMode as string,
+            sourceLocal: this.source as string,
+        }
+    },
+    props: {
+        displayMode: {
+            required: true,
+            type: String,
+        },
+        source: {
+            required: true,
+            type: String,
+        },
+    },
 });
 </script>
 
@@ -65,7 +137,6 @@ export default Vue.extend({
     width: 100%;
 
     &__hr {
-        margin: 0;
         margin: 36px 0 26px;
 
         @media (max-width: 600px) {
@@ -159,7 +230,7 @@ export default Vue.extend({
         line-height: 16px;
 
         &_active {
-            color: #0029FF;
+            color: #0029ff;
         }
     }
 
@@ -183,7 +254,7 @@ export default Vue.extend({
         background-color: #c4c4c4;
 
         &_active {
-            background-color: #0029ff
+            background-color: #0029ff;
         }
     }
 }
@@ -200,7 +271,7 @@ export default Vue.extend({
         background-color: #c4c4c4;
 
         &_active {
-            background-color: #0029ff
+            background-color: #0029ff;
         }
     }
 }
