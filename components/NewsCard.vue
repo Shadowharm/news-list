@@ -28,7 +28,7 @@
         <div class="newscard__info">
             <a
                 class="newscard__source"
-                :href="`https://${source}`"
+                :href="`https://www.${source}.ru`"
                 target="_blank"
                 >www.{{ source }}.ru</a
             >
