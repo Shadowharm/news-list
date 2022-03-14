@@ -3,7 +3,11 @@
         <div class="search">
             <div class="search__title-btn">
                 <h1 class="search__title">Список новостей</h1>
-                <button type="button" class="search__update-button" @click="$emit('update')">
+                <button
+                    type="button"
+                    class="search__update-button"
+                    @click="$emit('update')"
+                >
                     <update-icon />
                 </button>
             </div>
@@ -63,7 +67,9 @@
                         name="displayMode"
                         value="rows"
                         v-model="displayModeLocal"
-                        @change="$emit('changeDisplayMode', $event.target.value)"
+                        @change="
+                            $emit('changeDisplayMode', $event.target.value)
+                        "
                     />
                     <div
                         class="rows__div"
@@ -113,11 +119,11 @@ import UpdateIcon from '~/components/icons/UpdateIcon.vue';
 import Search from '~/components/Search.vue';
 export default Vue.extend({
     components: { UpdateIcon, Search },
-    data(){
+    data() {
         return {
             displayModeLocal: this.displayMode as string,
             sourceLocal: this.source as string,
-        }
+        };
     },
     props: {
         displayMode: {
@@ -128,6 +134,10 @@ export default Vue.extend({
             required: true,
             type: String,
         },
+    },
+    updated() {
+        this.displayModeLocal = this.displayMode;
+        this.sourceLocal = this.source;
     },
 });
 </script>

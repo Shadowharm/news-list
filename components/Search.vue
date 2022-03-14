@@ -1,6 +1,11 @@
 <template>
     <form class="search-input" @submit.prevent="$emit('search', input)">
-        <input type="text" class="search-input__input" name="search" v-model.trim="input"/>
+        <input
+            type="text"
+            class="search-input__input"
+            name="search"
+            v-model.trim="input"
+        />
         <button class="search-input__btn">
             <search-icon />
         </button>
@@ -13,8 +18,10 @@ import SearchIcon from '~/components/icons/SearchIcon.vue';
 export default Vue.extend({
     data() {
         return {
-            input: '' as string,
-        }
+            input: (this.$route.query.search
+                ? this.$route.query.search
+                : '') as string,
+        };
     },
     components: { SearchIcon },
 });

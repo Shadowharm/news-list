@@ -4,7 +4,7 @@
             <span v-if="n === length && insertDots.pushDots" :key="`a${n}`"
                 >...</span
             >
-            <label
+            <!-- <label
                 :key="`b${n}`"
                 class="nav__link"
                 :class="{
@@ -12,15 +12,22 @@
                 }"
             >
                 <input
-                    type="radio"
-                    name=""
+                    type="button"
                     class="radiobutton"
-                    v-model="activePageLocal"
                     :value="n"
-                    @change="$emit('changePage', +$event.target.value)"
+                    @click="$emit('changePage', +$event.target.value)"
                 />
                 {{ n }}
-            </label>
+            </label> -->
+            <router-link
+                :to="{ params: { page: `${n}` }, query: { source, search } }"
+                :key="`b${n}`"
+                class="nav__link"
+                :class="{
+                    nav__link_active: activePage === n,
+                }"
+                >{{ n }}</router-link
+            >
             <span v-if="n === 1 && insertDots.unshiftDots" :key="`c${n}`"
                 >...</span
             >
@@ -30,30 +37,35 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
     data() {
         return {
-            activePageLocal: this.activePage,
-        }
+            activePage: +this.$route.params.page as number,
+        };
     },
     props: {
         pages: {
             required: true,
             type: Array,
         },
-        activePage: {
-            required: true,
-            type: Number,
-        },
         length: {
             required: true,
             type: Number,
+        },
+        source: {
+            required: true,
+            type: String,
+        },
+        search: {
+            required: true,
+            type: String,
         },
     },
     computed: {
         insertDots: function () {
             const pages: number = this.length;
-            const activePage: number = this.activePage;
+            const activePage: number = +this.$route.params.page;
             const classObj: {
                 unshiftDots: boolean;
                 pushDots: boolean;
@@ -94,7 +106,7 @@ export default Vue.extend({
         font-weight: bold;
         font-size: 18px;
         cursor: pointer;
-
+        text-decoration: none;
         &_active {
             color: #0029ff;
         }

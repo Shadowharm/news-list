@@ -10,9 +10,10 @@
         />
         <News :newsList="newsListCurrent" :displayMode="displayMode" />
         <NavBar
-            :activePage="page"
             :pages="pages"
             :length="Math.ceil(length / 4)"
+            :source="source"
+            :search="searchValue"
             @changePage="changePage"
         />
     </Page>
@@ -32,7 +33,7 @@ export default Vue.extend({
     data() {
         return {
             newsList: [] as NewsType[],
-            page: 1 as number,
+            page: +this.$route.params.page as number,
             length: 0 as number,
             displayMode: 'grid' as string,
             source: 'all' as string,
@@ -43,6 +44,19 @@ export default Vue.extend({
         const data: NewsType[] = await this.$axios.$get('api/getNews/getNews');
         this.length = data.length;
         this.newsList = data;
+        if (localStorage.getItem('displayMode')) {
+            this.displayMode = `${localStorage.getItem('displayMode')}`;
+        }
+        if (this.$route.query.source) {
+            this.source = `${this.$route.query.source}`;
+            this.$router.push({ query: { source: this.source } });
+        }
+        if (this.$route.query.search) {
+            this.searchValue = `${this.$route.query.search}`;
+            this.$router.push({
+                query: { search: this.searchValue, source: this.source },
+            });
+        }
     },
     computed: {
         pages: function () {
@@ -97,27 +111,49 @@ export default Vue.extend({
     methods: {
         changeDisplayMode: function (value: string) {
             this.displayMode = value;
+            localStorage.setItem('displayMode', value);
         },
         changeSource: function (value: string) {
             this.source = value;
-            this.page = 1;
+            this.$router.push({
+                query: { ...this.$route.query, source: this.source },
+            });
         },
         update: async function () {
             const data: NewsType[] = await this.$axios.$get(
                 'api/getNews/getNews'
             );
             this.length = data.length;
-            this.page = 1;
-            this.source = 'all';
             this.newsList = data;
         },
         changePage: function (value: number) {
-            this.page = value;
+            this.$router.push({
+                params: { page: `${value}` },
+                query: this.$route.query,
+            });
         },
         search: function (value: string) {
-            this.page = 1;
             this.searchValue = value;
+            if (this.searchValue)
+                this.$router.push({
+                    params: { page: '1'},
+                    query: { ...this.$route.query, search: this.searchValue },
+                });
+            else
+                this.$router.push({
+                    params: { page: '1'},
+                    query: { source: this.source },
+                });
         },
+    },
+    updated() {
+        if (this.page > Math.ceil(this.length / 4)) {
+            if(Math.ceil(this.length / 4) === 0) return;
+            this.$router.push({
+                params: { page: '1' },
+                query: {...this.$route.query, source: this.source},
+            });
+        }
     },
 });
 </script>

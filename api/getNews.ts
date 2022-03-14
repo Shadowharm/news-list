@@ -20,7 +20,7 @@ const getNews: () => Promise<NewsType[]> = async () => {
         const date: Date = new Date(`${item.pubDate}`);
         const obj: NewsType = {
             title: `${item.title}`,
-            description: `${item.contentSnippet}`,
+            description: `${item.contentSnippet || ''}`,
             image: `${item.enclosure?.url}`,
             link: `${item.link}`,
             source: /lenta/.test(`${item.link}`) ? 'lenta' : 'mos',
